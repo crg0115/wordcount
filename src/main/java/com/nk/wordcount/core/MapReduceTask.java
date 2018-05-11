@@ -3,6 +3,7 @@ package com.nk.wordcount.core;
 import com.nk.wordcount.constant.WordCountConstant;
 import com.nk.wordcount.util.CollectionUtil;
 import com.nk.wordcount.util.FileReaderUtil;
+import com.nk.wordcount.util.ThreadPoolUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,7 +16,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 /**
  * Map任务执行者，负责进行文件中单词个数的统计
@@ -88,9 +88,8 @@ public class MapReduceTask {
         CollectionUtil.split(fileNameList, pageSize, new CollectionUtil.PageProcess<String>() {
             @Override
             public void process(List<String> subFileNameList) {
-                FutureTask<Map<String, Integer>> mapFutureTask = new FutureTask<>(new MapCallableTask(subFileNameList, finalCountDownLatch));
+                Future<Map<String, Integer>> mapFutureTask = ThreadPoolUtil.getInstance().submit(new MapCallableTask(subFileNameList, finalCountDownLatch));
                 mapResultFutureList.add(mapFutureTask);
-                new Thread(mapFutureTask).start();
             }
         });
         return mapResultFutureList;

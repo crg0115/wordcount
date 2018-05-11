@@ -1,6 +1,7 @@
 package com.nk.wordcount;
 
 import com.nk.wordcount.core.model.WordCount;
+import com.nk.wordcount.util.ThreadPoolUtil;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -44,6 +45,7 @@ public class WordCountTest {
             Assert.assertNotNull(wordCountList);
         }
 
+        ThreadPoolUtil.getInstance().shutdown();
     }
 
 }
