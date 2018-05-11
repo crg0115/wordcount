@@ -47,7 +47,7 @@ public class MapReduceTask {
     public MapReduceTask(List<String> fileNameList, int nThread,
                          boolean reduceUntilAllWorkThreadFinish) {
         this(fileNameList, nThread);
-        this.reduceUntilAllWorkThreadFinish = false;
+        this.reduceUntilAllWorkThreadFinish = reduceUntilAllWorkThreadFinish;
     }
 
     /**
@@ -92,6 +92,15 @@ public class MapReduceTask {
                 mapResultFutureList.add(mapFutureTask);
             }
         });
+
+        // 如果需要严格保证线程执行完再进行reduce则要await
+        try {
+            if (finalCountDownLatch != null) {
+                finalCountDownLatch.await();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return mapResultFutureList;
     }
 
