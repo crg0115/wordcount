@@ -21,12 +21,12 @@ public class ThreadPoolUtil {
     /**
      * 线程池最少线程数
      */
-    public static final int THREAD_POOL_CORE_SIZE = 5;// 线程池最少线程数
+    public static final int THREAD_POOL_CORE_SIZE = 5;
 
     /**
      * 最大线程数
      */
-    public static final int THREAD_POOL_MAX_SIZE = 20;// 最大线程数
+    public static final int THREAD_POOL_MAX_SIZE = 20;
 
     /**
      * 最大线程等待数
