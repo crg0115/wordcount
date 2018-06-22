@@ -63,13 +63,13 @@ public class CollectionUtil {
      *
      * @param <T>
      */
-    public static interface PageProcess<T> {
+    public interface PageProcess<T> {
 
         /**
          * 分页处理
          *
          * @param pageIdList
          */
-        public void process(List<T> pageIdList);
+        void process(List<T> pageIdList);
     }
 }
